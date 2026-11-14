@@ -1,0 +1,22 @@
+clear
+
+clang++ -std=c++20 -O1 -g3 \
+  -Wall -Wextra -Wpedantic \
+  -Wconversion -Wsign-conversion -Wshadow-all \
+  -Wcast-align -Wcast-qual \
+  -Wformat=2 -Wformat-signedness \
+  -Wfloat-equal -Wundef \
+  -Wswitch-enum -Wswitch-default -Wimplicit-fallthrough \
+  -Wmissing-declarations -Wnull-dereference \
+  -Werror=vla -Werror=return-type \
+  -Wno-dollar-in-identifier-extension \
+  -fsanitize=address,undefined,float-divide-by-zero \
+  -fsanitize-address-use-after-scope \
+  -fno-omit-frame-pointer \
+  ../AKINATOR/src/debugging.cpp \
+  ../AKINATOR/src/stack.cpp \
+  ../AKINATOR/src/bin_tree.cpp \
+  ../AKINATOR/src/akinator.cpp \
+  -o /Users/tamerlannagaev/prodva/AKINATOR/bin/dbg_AKINATOR
+
+../AKINATOR/bin/dbg_AKINATOR

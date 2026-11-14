@@ -1,0 +1,28 @@
+digraph {
+	bgcolor="#1d2021";
+	nodesep=0.6
+	rank_sep=1.0
+	node0x603000001d80 [style=filled; fillcolor="#7daea3" label = "гей"]
+	node0x603000001d80 -> node0x603000001e40 [color="#a9b665"]
+	node0x603000001e40 [style=filled; fillcolor="#7daea3" label = "ИВТшник"]
+	node0x603000001e40 -> node0x603000001ed0 [color="#a9b665"]
+	node0x603000001e40 -> node0x603000002110 [color="#ea6962"]
+	node0x603000001ed0 [style=filled; fillcolor="#7daea3" label = "мистер филосовская чекушка"]
+	node0x603000001ed0 -> node0x603000001f00 [color="#a9b665"]
+	node0x603000001ed0 -> node0x603000001ff0 [color="#ea6962"]
+	node0x603000001f00 [style=filled; fillcolor="#7daea3" label = "Виталя"]
+	node0x603000001ff0 [style=filled; fillcolor="#7daea3" label = "Тамерлан"]
+	node0x603000002110 [style=filled; fillcolor="#7daea3" label = "дитя инцеста"]
+	node0x603000002110 -> node0x603000002260 [color="#a9b665"]
+	node0x603000002110 -> node0x6030000023b0 [color="#ea6962"]
+	node0x603000002260 [style=filled; fillcolor="#7daea3" label = "	фифт"]
+	node0x6030000023b0 [style=filled; fillcolor="#7daea3" label = "веселый"]
+	node0x6030000023b0 -> node0x6030000024d0 [color="#a9b665"]
+	node0x6030000023b0 -> node0x6030000025f0 [color="#ea6962"]
+	node0x6030000024d0 [style=filled; fillcolor="#7daea3" label = "шуруповерт"]
+	node0x6030000025f0 [style=filled; fillcolor="#7daea3" label = "сосет только пыль"]
+	node0x6030000025f0 -> node0x603000002710 [color="#a9b665"]
+	node0x6030000025f0 -> node0x603000002830 [color="#ea6962"]
+	node0x603000002710 [style=filled; fillcolor="#7daea3" label = "пылесос"]
+	node0x603000002830 [style=filled; fillcolor="#7daea3" label = "Батыр"]
+}
