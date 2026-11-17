@@ -8,7 +8,7 @@
 #include "bin_tree.h"
 
 typedef node_s** stack_element_t;                      // Введите между typedef и stack_element_t тип данных стека
-#define STK_MODIFIER "%p"                           // Введите после stk модификатор вывода типа данных стека
+#define STK_MODIFIER    "%p"                           // Введите после stk модификатор вывода типа данных стека
 #define POISON_MODIFIER "%p"
 const   stack_element_t POISON = (node_s**)0xBAADF00D; // Введите редко (желательно никогда не) встречающиеся значение в стеке
 

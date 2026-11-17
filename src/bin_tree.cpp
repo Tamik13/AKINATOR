@@ -66,7 +66,7 @@ error_code_e bin_tree_destroy(bin_tree_s* const bin_tree) {
 }
 
 
-error_code_e bin_tree_insert(bin_tree_s* const bin_tree, node_s** const node, bin_tree_elem elem) {
+error_code_e bin_tree_insert(bin_tree_s* const bin_tree, node_s** const node, node_s* parent, bin_tree_elem elem) {
     assert(bin_tree != NULL);
     assert(node != NULL);
 
@@ -79,9 +79,10 @@ error_code_e bin_tree_insert(bin_tree_s* const bin_tree, node_s** const node, bi
         return ALLOCATION_ERROR;
     }
 
-    (*node)->left  = NULL;
-    (*node)->right = NULL;
-    (*node)->data  = elem;
+    (*node)->parent = parent;
+    (*node)->left   = NULL;
+    (*node)->right  = NULL;
+    (*node)->data   = elem;
     bin_tree->count_nodes++;
 
     LOG_OK("bin_tree_insert successfully elem = " BNT_MDF, elem);
@@ -105,13 +106,13 @@ error_code_e bin_tree_del(bin_tree_s* const bin_tree, node_s** const node) {
 error_code_e bin_tree_verify(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
 
-    ON_DBG(bin_tree_dmp(bin_tree);)
+    ON_DBG( bin_tree_dmp(bin_tree);)
 
     return SUCCESS;
 }
 
 
-error_code_e bin_tree_print_postorder(bin_tree_s* const bin_tree, char** buffer) {
+error_code_e bin_tree_print_preorder(bin_tree_s* const bin_tree, char** buffer) {
     assert(bin_tree != NULL);
     assert(buffer   != NULL);
 
@@ -191,7 +192,7 @@ void bin_tree_dmp(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
 
     char* buffer;
-    bin_tree_print_postorder(bin_tree, &buffer);
+    bin_tree_print_preorder(bin_tree, &buffer);
 
     error_code_e error_code = INIT_VALUE;
     if (bin_tree->count_nodes > 0) {
@@ -200,7 +201,7 @@ void bin_tree_dmp(bin_tree_s* const bin_tree) {
 
     LOG("bin_tree %p {",               bin_tree);
     LOG("bin_tree->count_nodes = %zd", bin_tree->count_nodes);
-    LOG("POSTORDER: %s", buffer);
+    LOG("PREORDER: %s", buffer);
     LOG("}");
 
     if (error_code == INIT_VALUE) {

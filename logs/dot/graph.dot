@@ -4,6 +4,7 @@ digraph {
 	rank_sep=1.0
 	node0x603000001d80 [style=filled; fillcolor="#7daea3" label = "гей"]
 	node0x603000001d80 -> node0x603000001e40 [color="#a9b665"]
+	node0x603000001d80 -> node0x603000002890 [color="#ea6962"]
 	node0x603000001e40 [style=filled; fillcolor="#7daea3" label = "ИВТшник"]
 	node0x603000001e40 -> node0x603000001ed0 [color="#a9b665"]
 	node0x603000001e40 -> node0x603000002110 [color="#ea6962"]
@@ -23,6 +24,11 @@ digraph {
 	node0x6030000025f0 [style=filled; fillcolor="#7daea3" label = "сосет только пыль"]
 	node0x6030000025f0 -> node0x603000002710 [color="#a9b665"]
 	node0x6030000025f0 -> node0x603000002830 [color="#ea6962"]
-	node0x603000002710 [style=filled; fillcolor="#7daea3" label = "пылесос"]
+	node0x603000002710 [style=filled; fillcolor="#7daea3" label = "Все таки ИВТшник"]
+	node0x603000002710 -> node0x6030000028f0 [color="#a9b665"]
+	node0x603000002710 -> node0x603000002950 [color="#ea6962"]
+	node0x6030000028f0 [style=filled; fillcolor="#7daea3" label = "Леха"]
+	node0x603000002950 [style=filled; fillcolor="#7daea3" label = "пылесос"]
 	node0x603000002830 [style=filled; fillcolor="#7daea3" label = "Батыр"]
+	node0x603000002890 [style=filled; fillcolor="#7daea3" label = "неизвестно кто"]
 }

@@ -3,38 +3,51 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdarg.h>
 #include <ctime>
 
 #include "../include/stack.h"
 #include "../include/bin_tree.h"
 
 error_code_e akinator_start     (bin_tree_s* const bin_tree, char** buffer);
-error_code_e akinator_find      (bin_tree_s* const bin_tree);
+error_code_e akinator_guess     (bin_tree_s* const bin_tree);
 error_code_e akinator_vis_tree  (bin_tree_s* const bin_tree);
 error_code_e akinator_save      (bin_tree_s* const bin_tree);
 error_code_e akinator_read      (bin_tree_s* const bin_tree, char** buffer);
 error_code_e akinator_ask       (bin_tree_s* const bin_tree);
 error_code_e akinator_definition(bin_tree_s* const bin_tree);
+error_code_e akinator_give_trace(node_s**          node    , stack_s* stack, const char* const buffer);
+error_code_e akinator_end       (bin_tree_s* const bin_tree, char* buffer);
 
 void clean_buffer   ();
 void read_line      (char* buffer, ssize_t size);
 void say_smart_words();
+void print_and_say  (const char* const buffer, size_t size ...);
 
-const size_t ANSWER_SIZE = 100;
+enum command_e {
+    NOT_A_COMMAND = 0,
+    GUESS         = 1,
+    VIS_TREE      = 2,
+    DEFINITION    = 3,
+    SAVE_AND_QUIT = 4,
+    QUIT          = 5
+};
+
+const size_t ANSWER_SIZE      = 100;
+const size_t MAX_LITERAL_SIZE = 200;
 
 int main() {
     SAFE_CALL( log_start(), )
 
     char*      buffer   = NULL;
     bin_tree_s bin_tree = {};
-    SAFE_CALL( akinator_start(&bin_tree, &buffer), )
 
+    SAFE_CALL( akinator_start(&bin_tree, &buffer), )
     SAFE_CALL( akinator_ask(&bin_tree), )
 
     say_smart_words();
 
-    free(buffer); // TODO akinator_end
-    SAFE_CALL( bin_tree_destroy(&bin_tree), )
+    SAFE_CALL( akinator_end(&bin_tree, buffer), )
     SAFE_CALL( log_end(), )
     return 0;
 }
@@ -50,47 +63,41 @@ error_code_e akinator_start(bin_tree_s* const bin_tree, char** buffer) {
 }
 
 
-error_code_e akinator_find(bin_tree_s* const bin_tree) {
+error_code_e akinator_guess(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
 
-    node_s**      node                    = &bin_tree->root;
-    char          answer[ANSWER_SIZE * 2] = "";
+    node_s** node                    = &bin_tree->root;
+    char     answer[ANSWER_SIZE * 2] = "";
 
     while (node != NULL) {
-        snprintf(answer, ANSWER_SIZE * 2, "say \"Это %s?\n\"", (*node)->data);
-        printf("Это %s?\n", (*node)->data);
-        system(answer);
+        print_and_say("Это %s?", MAX_LITERAL_SIZE, (*node)->data);
 
         read_line(answer, ANSWER_SIZE);
 
-        if (strncmp(answer, "да", 4) == 0) {
+        if (strcmp(answer, "да") == 0) {
 
             if ((*node)->left == NULL) {
-                printf("Это очевидно!!!\n");
-                system("say \"Это очевидно\"");
+                print_and_say("Это очевидно!!!", MAX_LITERAL_SIZE);
                 return SUCCESS;
             }
 
             node = &(*node)->left;
 
-        } else if (strncmp(answer, "нет", 6) == 0) {
+        } else if (strcmp(answer, "нет") == 0) {
 
             if ((*node)->left == NULL) {
 
                 char* new_elem   = (char*)calloc(ANSWER_SIZE, sizeof(char));
                 char* difference = (char*)calloc(ANSWER_SIZE, sizeof(char));
 
-                printf("а кто это был?\n");
-                system("say \"а кто это был?\"");
+                print_and_say("а кто это был?", MAX_LITERAL_SIZE);
                 read_line(new_elem, ANSWER_SIZE);
 
-                printf("А чем %s отличается от %s?\n", new_elem, (*node)->data);
-                snprintf(answer, ANSWER_SIZE * 2, "say \"А чем %s отличается от %s?\n\"", new_elem, (*node)->data);
-                system(answer);
+                print_and_say("А чем %s отличается от %s?\n", MAX_LITERAL_SIZE, new_elem, (*node)->data);
                 read_line(difference, ANSWER_SIZE);
 
-                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->left, new_elem), )
-                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->right, (*node)->data), )
+                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->left, *node, new_elem), )
+                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->right, *node, (*node)->data), )
                 (*node)->data         = difference;
                 bin_tree_dmp(bin_tree);
 
@@ -100,8 +107,7 @@ error_code_e akinator_find(bin_tree_s* const bin_tree) {
 
             node = &(*node)->right;
         } else {
-            printf("отвечайте да или нет\n");
-            system("say \"отвечайте да или нет\"");
+            print_and_say("отвечайте да или нет", MAX_LITERAL_SIZE);
         }
     }
 
@@ -113,87 +119,14 @@ error_code_e akinator_find(bin_tree_s* const bin_tree) {
 error_code_e akinator_vis_tree(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
 
-    const char* const file_name = "./logs/dot/graph.dot";
+    bin_tree_dmp(bin_tree);
 
-    FILE* dot_file = fopen(file_name, "w");
-    if (dot_file == NULL) {
-        LOG_ERROR("cant open dot file");
-        return ERROR_DURING_OPEN;
-    }
-
-    if (bin_tree->count_nodes == 0) {
-        LOG_OK("void bin_tree cant be convert in img");
-        return INCORRECT_SIZE;
-    }
-
-    fprintf(dot_file,   "digraph {\n"
-                            "\tnodesep=0.6\n"
-                            "\trank_sep=1.0\n"
-                            );
-
-    ON_DBG(    ssize_t cnt         = 0;)
-               node_s**   node     = NULL;
-               stack_s    stack    = {};
-               STACK_INIT(stack, bin_tree->count_nodes);
-    SAFE_CALL( stack_push(&stack, &bin_tree->root), stack_destroy(&stack));
-
-    while (stack.size > 0) {
-        ON_DBG(
-        if (cnt++ > bin_tree->count_nodes * 3) {
-            LOG_ERROR("infinite cycle");
-            return INCORRECT_SIZE;
-        }
-        )
-
-        SAFE_CALL( stack_pop(&stack, &node), stack_destroy(&stack));
-        fprintf(dot_file, "\tnode%p [style=filled; fillcolor=\"" AQUA_HX "\" label = \"" BNT_MDF "\"]\n", (void*)*node, (*node)->data);
-
-        if ((*node)->left != NULL && (*node)->right != NULL) {
-
-            fprintf(dot_file, "\tnode%p -> node%p [color=\"" GREEN_HX "\" label=\"да\"]\n", (void*)*node, (void*)(*node)->left);
-            fprintf(dot_file, "\tnode%p -> node%p [color=\"" RED_HX   "\" label=\"нет\"]\n", (void*)*node, (void*)(*node)->right);
-            SAFE_CALL( stack_push(&stack, &(*node)->left),  stack_destroy(&stack))
-            SAFE_CALL( stack_push(&stack, &(*node)->right), stack_destroy(&stack))
-
-        } else if ((*node)->left != NULL) {
-
-            fprintf(dot_file, "\tnode%p -> node%p [color=\"" GREEN_HX "\" label=\"да\"]\n", (void*)*node, (void*)(*node)->left);
-            SAFE_CALL( stack_push(&stack, &(*node)->left),  stack_destroy(&stack))
-
-        } else if ((*node)->right != NULL) {
-
-            fprintf(dot_file, "\tnode%p -> node%p [color=\"" RED_HX   "\" label=\"нет\"]\n", (void*)*node, (void*)(*node)->right);
-            SAFE_CALL( stack_push(&stack, &(*node)->right), stack_destroy(&stack))
-
-        }
-    }
-
-    fprintf(dot_file, "}");
-
-    if (fclose(dot_file) == EOF) {
-        LOG_ERROR("cant close dot file");
-        return ERROR_DURING_CLOSE;
-    }
-
-    SAFE_CALL( stack_destroy(&stack), );
-
-    int status = system("dot -Tsvg ./logs/dot/graph.dot -o ./logs/dot/graph.svg 2>&1"
-                        "| grep -v -E 'Warning:.*(non-ASCII|libgvplugin_pango)' >&2");
+    int status = system("open ./logs/dot/graph.svg");
 
     if (status == -1) {
-        LOG_ERROR("status of system(dot -Tsvg ./logs/dot/graph.dot -o ./logs/dot/graph.svg) = -1");
+        LOG_ERROR("cant system(open ./logs/dot/graph.svg) errno: %s", strerror(errno));
         return SYSTEM_ERROR;
     }
-
-    status = system("open ./logs/dot/graph.svg");
-
-    if (status == -1) {
-        LOG_ERROR("status of system(open ./logs/dot/graph.svg) = -1");
-        return SYSTEM_ERROR;
-    }
-
-    LOG_OK("graph graphic dmp successfully");
-    return SUCCESS;
 
     return SUCCESS;
 }
@@ -203,7 +136,7 @@ error_code_e akinator_save(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
 
     char* buffer = NULL;
-    bin_tree_print_postorder(bin_tree, &buffer);
+    bin_tree_print_preorder(bin_tree, &buffer);
 
     int data_file = open("./src/data_base.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE);
 
@@ -254,14 +187,14 @@ error_code_e akinator_read(bin_tree_s* const bin_tree, char** buffer) {
         return ERROR_DURING_READ;
     }
 
-    assert(count_read > 0 && count_read < size);
+    assert(count_read > 0 && (size_t)count_read < size);
 
-    ssize_t data_ind = 1;
-    stack_s parents = {};
+    ssize_t  data_ind = 1;
+    stack_s  parents = {};
     node_s** node   = &bin_tree->root;
-    SAFE_CALL( bin_tree_insert(bin_tree, node, NULL), free((*buffer)); close(data_base))
-    STACK_INIT(parents, 2);
-    SAFE_CALL( stack_push(&parents, node), free((*buffer)); close(data_base))
+    SAFE_CALL ( bin_tree_insert(bin_tree, node, NULL, NULL), free((*buffer)); close(data_base))
+    STACK_INIT( parents, 2);
+    SAFE_CALL ( stack_push(&parents, node), free((*buffer)); close(data_base))
 
 
     for (ssize_t ind = 1; ind < count_read; ind++) {
@@ -274,11 +207,11 @@ error_code_e akinator_read(bin_tree_s* const bin_tree, char** buffer) {
             SAFE_CALL( stack_push(&parents, node), free((*buffer)); close(data_base))
 
             if ((*node)->left == NULL) {
-                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->left, NULL), free((*buffer)); close(data_base))
+                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->left, *node, NULL), free((*buffer)); close(data_base))
                 node = &(*node)->left;
 
             } else if ((*node)->right == NULL) {
-                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->right, NULL), free((*buffer)); close(data_base))
+                SAFE_CALL( bin_tree_insert(bin_tree, &(*node)->right, *node, NULL), free((*buffer)); close(data_base))
                 node = &(*node)->right;
 
             } else {
@@ -311,39 +244,45 @@ error_code_e akinator_ask(bin_tree_s* const bin_tree) {
     assert(bin_tree != NULL);
     bool quit = false;
 
-    while (!quit) { // TODO new func
-        int mode = 0;
+    while (!quit) {
+        command_e mode = NOT_A_COMMAND;
 
-        printf("Чего желаете, сударь?\n"
-               "1)Отгадать\n"
+        print_and_say("\nЧего желаете, сударь?", MAX_LITERAL_SIZE);
+
+        printf("1)Отгадать\n"
                "2)Показать дерево\n"
-               "3)выйти с сохранением\n"
-               "4)выйти без сохранения\n");
-        system("say \"Чего желаете, сударь?\"");
+               "3)Дать определение\n"
+               "4)Выйти с сохранением\n"
+               "5)Выйти без сохранения\n");
 
         scanf("%d", &mode);
         clean_buffer();
 
         switch(mode) {
-            case 1:
-                SAFE_CALL( akinator_find(bin_tree), )
+            case GUESS:
+                SAFE_CALL( akinator_guess(bin_tree), )
                 break;
 
-            case 2:
+            case VIS_TREE:
                 SAFE_CALL( akinator_vis_tree(bin_tree), )
                 break;
 
-            case 3:
+            case DEFINITION:
+                SAFE_CALL( akinator_definition(bin_tree), )
+                break;
+
+            case SAVE_AND_QUIT:
                 quit = true;
                 SAFE_CALL( akinator_save(bin_tree), )
                 break;
 
-            case 4:
+            case QUIT:
                 quit = true;
                 break;
 
+            case NOT_A_COMMAND:
             default:
-                printf("Я не понял, повтори\n");
+                print_and_say("Я не понял, повтори\n", MAX_LITERAL_SIZE);
         }
     }
 
@@ -351,11 +290,81 @@ error_code_e akinator_ask(bin_tree_s* const bin_tree) {
 }
 
 
+error_code_e akinator_definition(bin_tree_s* const bin_tree) {
+    assert(bin_tree != NULL);
+
+    char buffer[ANSWER_SIZE] = "";
+
+    print_and_say("\nВведите элемент которому хотите дать определение: ", MAX_LITERAL_SIZE);
+    read_line(buffer, ANSWER_SIZE);
+
+    stack_s stack = {};
+    STACK_INIT(stack, 2);
+
+    SAFE_CALL( akinator_give_trace(&bin_tree->root, &stack, buffer), );
+
+    node_s** parent = NULL;
+    node_s** node   = NULL;
+
+    while (stack.size > 0) {
+        parent = node;
+        SAFE_CALL( stack_pop(&stack, &node), )
+
+        if (parent != NULL) {
+
+
+            if ((*parent)->left == *node) {
+                print_and_say("%s", MAX_LITERAL_SIZE, (*parent)->data);
+
+            } else {
+                print_and_say("не %s", MAX_LITERAL_SIZE, (*parent)->data);
+            }
+
+        }
+    }
+
+    return SUCCESS;
+}
+
+
+error_code_e akinator_give_trace(node_s** node, stack_s* const stack, const char* const buffer) {
+    assert(node != NULL);
+
+    if (strncmp(buffer, (*node)->data, ANSWER_SIZE) == 0) {
+        SAFE_CALL( stack_push(stack, node), )
+        return SUCCESS;
+    }
+
+    if ((*node)->left)                      SAFE_CALL( akinator_give_trace(&(*node)->left,  stack, buffer), )
+    if ((*node)->right && stack->size == 0) SAFE_CALL( akinator_give_trace(&(*node)->right, stack, buffer), )
+
+    if (stack->size > 0) {
+        SAFE_CALL( stack_push(stack, node), )
+    }
+
+    return SUCCESS;
+}
+
+
+error_code_e akinator_end(bin_tree_s* const bin_tree, char* buffer) {
+    assert(bin_tree != NULL);
+    assert(buffer   != NULL);
+
+    free(buffer);
+    buffer = NULL;
+    SAFE_CALL( bin_tree_destroy(bin_tree), )
+
+    return SUCCESS;
+}
+
+
 void clean_buffer() {
     int ch = 0;
+
     while ((ch = getchar()) != '\n' && ch != EOF) {
         continue;
     }
+
     return;
 }
 
@@ -377,37 +386,38 @@ void read_line(char* buffer, ssize_t size) {
         clean_buffer();
     }
 
+    LOG_ERROR("cant read line");
     return;
 }
 
 
 void say_smart_words() {
     srand((unsigned int)time(NULL));
-    size_t krichalka = rand() % 6;
+    size_t krichalka = (size_t)rand() % 6;
 
     switch (krichalka) {
         case 0:
-            system("say \"Слышно нам на всю долгопу как фифты друг друга в попу!\"");
+            print_and_say("Слышно нам на всю долгопу как фифты друг друга в попу!", MAX_LITERAL_SIZE);
             return;
 
         case 1:
-            system("say \"Член эртэшный чмоки-чмоки - у фопфоф устали щеки!\"");
+            print_and_say("Член эртэшный чмоки-чмоки - у фопфоф устали щеки!", MAX_LITERAL_SIZE);
             return;
 
         case 2:
-            system("say \"Там, где застрянут эРТэшные танки – смело проходят БэМские тянки!\"");
+            print_and_say("Там, где застрянут эРТэшные танки – смело проходят БэМские тянки!", MAX_LITERAL_SIZE);
             return;
 
         case 3:
-            system("say \"Что гремит? Что так грохочет? Факи сосать по горло хочет!\"");
+            print_and_say("Что гремит? Что так грохочет? Факи сосать по горло хочет!", MAX_LITERAL_SIZE);
             return;
 
         case 4:
-            system("say \"От коробки до энка - лучше всех ФэРТэКа\"");
+            print_and_say("От коробки до энка - лучше всех ФэРТэКа", MAX_LITERAL_SIZE);
             return;
 
         case 5:
-            system("say \"ЭРТЭ ЭРТЭ ЭРТЭ ЭРТЭ ЭРТЭ\"");
+            print_and_say("ЭРТЭ ЭРТЭ ЭРТЭ ЭРТЭ ЭРТЭ", MAX_LITERAL_SIZE);
             return;
 
         default:
@@ -416,5 +426,46 @@ void say_smart_words() {
     }
 
     LOG_ERROR("incorrect switch");
+    return;
+}
+
+
+void print_and_say(const char* const buffer, const size_t size ...) {
+    assert(buffer != NULL);
+
+    va_list ap = {};
+    va_start(ap, size);
+
+    size_t new_buffer_size = size * 10;
+    char*  new_buffer      = (char*)calloc(new_buffer_size, sizeof(char));
+
+    if (new_buffer == NULL) {
+        LOG_ERROR("cant new_buffer allocate");
+        return;
+    }
+
+    if (vsnprintf(new_buffer, size, buffer, ap) == -1) {
+        LOG_ERROR("error in vsnprintf");
+        return;
+    }
+
+    printf("%s\n", new_buffer);
+
+    char* cmd = (char*)calloc(new_buffer_size + sizeof("say \"\""), sizeof(char));
+
+    if (cmd == NULL) {
+        LOG_ERROR("cnat cmd allocate");
+        return;
+    }
+
+    if (snprintf(cmd, size, "say \"%s\"", new_buffer) == -1) {
+        LOG_ERROR("error in vsnprintf");
+        return;
+    }
+
+    system(cmd);
+
+    free(new_buffer);
+    free(cmd);
     return;
 }
