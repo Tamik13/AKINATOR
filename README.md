@@ -29,7 +29,7 @@ build/rls_compile
 |5|Выйти без сохранения|Завершает работу программы|
 
 Пример вывода дерева персонажей
-![bin_tree_dmp](./logs/dot/graph.dot)
+![bin_tree_dmp](./logs/dot/graph.svg)
 
 Пример определения элемента
 
