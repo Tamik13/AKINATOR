@@ -45,7 +45,7 @@ int main() {
     SAFE_CALL( akinator_start(&bin_tree, &buffer), )
     SAFE_CALL( akinator_ask(&bin_tree), )
 
-    say_smart_words();
+               say_smart_words();
 
     SAFE_CALL( akinator_end(&bin_tree, buffer), )
     SAFE_CALL( log_end(), )
@@ -302,6 +302,12 @@ error_code_e akinator_definition(bin_tree_s* const bin_tree) {
     STACK_INIT(stack, 2);
 
     SAFE_CALL( akinator_give_trace(&bin_tree->root, &stack, buffer), );
+
+    if (stack.size == 0) {
+        print_and_say("Такого элемента нет", MAX_LITERAL_SIZE);
+        LOG_OK("akinator success");
+        return SUCCESS;
+    }
 
     node_s** parent = NULL;
     node_s** node   = NULL;

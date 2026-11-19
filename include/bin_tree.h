@@ -11,6 +11,7 @@ struct node_s {
     node_s* left;
     node_s* right;
     node_s* parent;
+    bool    is_new;
 };
 
 struct bin_tree_s {

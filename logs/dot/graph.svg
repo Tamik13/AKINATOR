@@ -8,177 +8,165 @@
  viewBox="0.00 0.00 692.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
 <polygon fill="#1d2021" stroke="none" points="-4,4 -4,-472 688.19,-472 688.19,4 -4,4"/>
-<!-- node0x603000001d80 -->
+<!-- node0x604000000650 -->
 <g id="node1" class="node">
-<title>node0x603000001d80</title>
-<ellipse fill="#7daea3" stroke="black" cx="345.01" cy="-450" rx="27" ry="18"/>
-<text xml:space="preserve" text-anchor="middle" x="345.01" y="-445.8" font-family="Times,serif" font-size="14.00">гей</text>
+<title>node0x604000000650</title>
+<ellipse fill="#7daea3" stroke="black" cx="263.01" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="263.01" y="-445.8" font-family="Times,serif" font-size="14.00">гей</text>
 </g>
-<!-- node0x603000001e40 -->
+<!-- node0x604000000690 -->
 <g id="node2" class="node">
-<title>node0x603000001e40</title>
+<title>node0x604000000690</title>
 <ellipse fill="#7daea3" stroke="black" cx="263.01" cy="-378" rx="44.84" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="263.01" y="-373.8" font-family="Times,serif" font-size="14.00">ИВТшник</text>
 </g>
-<!-- node0x603000001d80&#45;&gt;node0x603000001e40 -->
+<!-- node0x604000000650&#45;&gt;node0x604000000690 -->
 <g id="edge1" class="edge">
-<title>node0x603000001d80&#45;&gt;node0x603000001e40</title>
-<path fill="none" stroke="#a9b665" d="M328.81,-435.17C317.73,-425.72 302.79,-412.96 289.95,-402"/>
-<polygon fill="#a9b665" stroke="#a9b665" points="292.49,-399.57 282.62,-395.74 287.95,-404.89 292.49,-399.57"/>
+<title>node0x604000000650&#45;&gt;node0x604000000690</title>
+<path fill="none" stroke="#a9b665" d="M263.01,-431.7C263.01,-424.41 263.01,-415.73 263.01,-407.54"/>
+<polygon fill="#a9b665" stroke="#a9b665" points="266.51,-407.62 263.01,-397.62 259.51,-407.62 266.51,-407.62"/>
 </g>
-<!-- node0x603000002890 -->
+<!-- node0x604000000710 -->
 <g id="node3" class="node">
-<title>node0x603000002890</title>
-<ellipse fill="#7daea3" stroke="black" cx="427.01" cy="-378" rx="76.22" ry="18"/>
-<text xml:space="preserve" text-anchor="middle" x="427.01" y="-373.8" font-family="Times,serif" font-size="14.00">неизвестно кто</text>
-</g>
-<!-- node0x603000001d80&#45;&gt;node0x603000002890 -->
-<g id="edge2" class="edge">
-<title>node0x603000001d80&#45;&gt;node0x603000002890</title>
-<path fill="none" stroke="#ea6962" d="M361.21,-435.17C371.87,-426.06 386.13,-413.9 398.64,-403.21"/>
-<polygon fill="#ea6962" stroke="#ea6962" points="400.89,-405.9 406.22,-396.75 396.34,-400.58 400.89,-405.9"/>
-</g>
-<!-- node0x603000001ed0 -->
-<g id="node4" class="node">
-<title>node0x603000001ed0</title>
+<title>node0x604000000710</title>
 <ellipse fill="#7daea3" stroke="black" cx="143.01" cy="-306" rx="131.75" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="143.01" y="-301.8" font-family="Times,serif" font-size="14.00">мистер филосовская чекушка</text>
 </g>
-<!-- node0x603000001e40&#45;&gt;node0x603000001ed0 -->
-<g id="edge3" class="edge">
-<title>node0x603000001e40&#45;&gt;node0x603000001ed0</title>
+<!-- node0x604000000690&#45;&gt;node0x604000000710 -->
+<g id="edge2" class="edge">
+<title>node0x604000000690&#45;&gt;node0x604000000710</title>
 <path fill="none" stroke="#a9b665" d="M238.43,-362.67C222.23,-353.22 200.67,-340.63 182.13,-329.82"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="183.91,-326.81 173.51,-324.79 180.39,-332.86 183.91,-326.81"/>
 </g>
-<!-- node0x603000002110 -->
-<g id="node5" class="node">
-<title>node0x603000002110</title>
+<!-- node0x604000000950 -->
+<g id="node4" class="node">
+<title>node0x604000000950</title>
 <ellipse fill="#7daea3" stroke="black" cx="384.01" cy="-306" rx="66.56" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="384.01" y="-301.8" font-family="Times,serif" font-size="14.00">дитя инцеста</text>
 </g>
-<!-- node0x603000001e40&#45;&gt;node0x603000002110 -->
-<g id="edge4" class="edge">
-<title>node0x603000001e40&#45;&gt;node0x603000002110</title>
+<!-- node0x604000000690&#45;&gt;node0x604000000950 -->
+<g id="edge3" class="edge">
+<title>node0x604000000690&#45;&gt;node0x604000000950</title>
 <path fill="none" stroke="#ea6962" d="M287.79,-362.67C304.78,-352.83 327.64,-339.61 346.81,-328.52"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="348.52,-331.57 355.42,-323.54 345.01,-325.51 348.52,-331.57"/>
 </g>
-<!-- node0x603000001f00 -->
-<g id="node6" class="node">
-<title>node0x603000001f00</title>
+<!-- node0x6040000007d0 -->
+<g id="node5" class="node">
+<title>node0x6040000007d0</title>
 <ellipse fill="#7daea3" stroke="black" cx="40.01" cy="-234" rx="40.01" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="40.01" y="-229.8" font-family="Times,serif" font-size="14.00">Виталя</text>
 </g>
-<!-- node0x603000001ed0&#45;&gt;node0x603000001f00 -->
-<g id="edge5" class="edge">
-<title>node0x603000001ed0&#45;&gt;node0x603000001f00</title>
+<!-- node0x604000000710&#45;&gt;node0x6040000007d0 -->
+<g id="edge4" class="edge">
+<title>node0x604000000710&#45;&gt;node0x6040000007d0</title>
 <path fill="none" stroke="#a9b665" d="M117.81,-287.88C103.64,-278.25 85.84,-266.15 70.85,-255.96"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="72.95,-253.16 62.72,-250.43 69.02,-258.95 72.95,-253.16"/>
 </g>
-<!-- node0x603000001ff0 -->
-<g id="node7" class="node">
-<title>node0x603000001ff0</title>
+<!-- node0x6040000008d0 -->
+<g id="node6" class="node">
+<title>node0x6040000008d0</title>
 <ellipse fill="#7daea3" stroke="black" cx="173.01" cy="-234" rx="49.66" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="173.01" y="-229.8" font-family="Times,serif" font-size="14.00">Тамерлан</text>
 </g>
-<!-- node0x603000001ed0&#45;&gt;node0x603000001ff0 -->
-<g id="edge6" class="edge">
-<title>node0x603000001ed0&#45;&gt;node0x603000001ff0</title>
+<!-- node0x604000000710&#45;&gt;node0x6040000008d0 -->
+<g id="edge5" class="edge">
+<title>node0x604000000710&#45;&gt;node0x6040000008d0</title>
 <path fill="none" stroke="#ea6962" d="M150.42,-287.7C153.66,-280.15 157.53,-271.12 161.14,-262.68"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="164.36,-264.07 165.08,-253.5 157.92,-261.31 164.36,-264.07"/>
 </g>
-<!-- node0x603000002260 -->
-<g id="node8" class="node">
-<title>node0x603000002260</title>
+<!-- node0x604000000a10 -->
+<g id="node7" class="node">
+<title>node0x604000000a10</title>
 <ellipse fill="#7daea3" stroke="black" cx="355.01" cy="-234" rx="30.35" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="355.01" y="-229.8" font-family="Times,serif" font-size="14.00">	фифт</text>
 </g>
-<!-- node0x603000002110&#45;&gt;node0x603000002260 -->
-<g id="edge7" class="edge">
-<title>node0x603000002110&#45;&gt;node0x603000002260</title>
+<!-- node0x604000000950&#45;&gt;node0x604000000a10 -->
+<g id="edge6" class="edge">
+<title>node0x604000000950&#45;&gt;node0x604000000a10</title>
 <path fill="none" stroke="#a9b665" d="M376.84,-287.7C373.63,-279.95 369.77,-270.64 366.2,-262.02"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="369.53,-260.92 362.47,-253.02 363.07,-263.6 369.53,-260.92"/>
 </g>
-<!-- node0x6030000023b0 -->
-<g id="node9" class="node">
-<title>node0x6030000023b0</title>
+<!-- node0x604000000ad0 -->
+<g id="node8" class="node">
+<title>node0x604000000ad0</title>
 <ellipse fill="#7daea3" stroke="black" cx="473.01" cy="-234" rx="44.84" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="473.01" y="-229.8" font-family="Times,serif" font-size="14.00">веселый</text>
 </g>
-<!-- node0x603000002110&#45;&gt;node0x6030000023b0 -->
-<g id="edge8" class="edge">
-<title>node0x603000002110&#45;&gt;node0x6030000023b0</title>
+<!-- node0x604000000950&#45;&gt;node0x604000000ad0 -->
+<g id="edge7" class="edge">
+<title>node0x604000000950&#45;&gt;node0x604000000ad0</title>
 <path fill="none" stroke="#ea6962" d="M404.65,-288.76C416.47,-279.47 431.47,-267.67 444.41,-257.49"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="446.51,-260.3 452.2,-251.36 442.18,-254.79 446.51,-260.3"/>
 </g>
-<!-- node0x6030000024d0 -->
-<g id="node10" class="node">
-<title>node0x6030000024d0</title>
+<!-- node0x604000000b90 -->
+<g id="node9" class="node">
+<title>node0x604000000b90</title>
 <ellipse fill="#7daea3" stroke="black" cx="377.01" cy="-162" rx="59.32" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="377.01" y="-157.8" font-family="Times,serif" font-size="14.00">шуруповерт</text>
 </g>
-<!-- node0x6030000023b0&#45;&gt;node0x6030000024d0 -->
-<g id="edge9" class="edge">
-<title>node0x6030000023b0&#45;&gt;node0x6030000024d0</title>
+<!-- node0x604000000ad0&#45;&gt;node0x604000000b90 -->
+<g id="edge8" class="edge">
+<title>node0x604000000ad0&#45;&gt;node0x604000000b90</title>
 <path fill="none" stroke="#a9b665" d="M452.18,-217.81C439.33,-208.44 422.61,-196.25 408.2,-185.75"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="410.5,-183.09 400.36,-180.03 406.37,-188.75 410.5,-183.09"/>
 </g>
-<!-- node0x6030000025f0 -->
-<g id="node11" class="node">
-<title>node0x6030000025f0</title>
+<!-- node0x604000000c50 -->
+<g id="node10" class="node">
+<title>node0x604000000c50</title>
 <ellipse fill="#7daea3" stroke="black" cx="568.01" cy="-162" rx="88.29" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="568.01" y="-157.8" font-family="Times,serif" font-size="14.00">сосет только пыль</text>
 </g>
-<!-- node0x6030000023b0&#45;&gt;node0x6030000025f0 -->
-<g id="edge10" class="edge">
-<title>node0x6030000023b0&#45;&gt;node0x6030000025f0</title>
+<!-- node0x604000000ad0&#45;&gt;node0x604000000c50 -->
+<g id="edge9" class="edge">
+<title>node0x604000000ad0&#45;&gt;node0x604000000c50</title>
 <path fill="none" stroke="#ea6962" d="M493.62,-217.81C506.16,-208.58 522.41,-196.6 536.53,-186.19"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="538.25,-189.28 544.22,-180.53 534.1,-183.64 538.25,-189.28"/>
 </g>
-<!-- node0x603000002710 -->
-<g id="node12" class="node">
-<title>node0x603000002710</title>
+<!-- node0x604000000d10 -->
+<g id="node11" class="node">
+<title>node0x604000000d10</title>
 <ellipse fill="#7daea3" stroke="black" cx="487.01" cy="-90" rx="83.46" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="487.01" y="-85.8" font-family="Times,serif" font-size="14.00">Все таки ИВТшник</text>
 </g>
-<!-- node0x6030000025f0&#45;&gt;node0x603000002710 -->
-<g id="edge11" class="edge">
-<title>node0x6030000025f0&#45;&gt;node0x603000002710</title>
+<!-- node0x604000000c50&#45;&gt;node0x604000000d10 -->
+<g id="edge10" class="edge">
+<title>node0x604000000c50&#45;&gt;node0x604000000d10</title>
 <path fill="none" stroke="#a9b665" d="M548.4,-144.05C538.35,-135.37 525.94,-124.64 514.91,-115.11"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="517.43,-112.67 507.58,-108.78 512.86,-117.97 517.43,-112.67"/>
 </g>
-<!-- node0x603000002830 -->
-<g id="node13" class="node">
-<title>node0x603000002830</title>
+<!-- node0x604000000fd0 -->
+<g id="node12" class="node">
+<title>node0x604000000fd0</title>
 <ellipse fill="#7daea3" stroke="black" cx="649.01" cy="-90" rx="35.18" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="649.01" y="-85.8" font-family="Times,serif" font-size="14.00">Батыр</text>
 </g>
-<!-- node0x6030000025f0&#45;&gt;node0x603000002830 -->
-<g id="edge12" class="edge">
-<title>node0x6030000025f0&#45;&gt;node0x603000002830</title>
+<!-- node0x604000000c50&#45;&gt;node0x604000000fd0 -->
+<g id="edge11" class="edge">
+<title>node0x604000000c50&#45;&gt;node0x604000000fd0</title>
 <path fill="none" stroke="#ea6962" d="M587.62,-144.05C598.29,-134.83 611.62,-123.31 623.13,-113.36"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="625.09,-116.3 630.36,-107.11 620.51,-111 625.09,-116.3"/>
 </g>
-<!-- node0x6030000028f0 -->
-<g id="node14" class="node">
-<title>node0x6030000028f0</title>
+<!-- node0x604000000dd0 -->
+<g id="node13" class="node">
+<title>node0x604000000dd0</title>
 <ellipse fill="#7daea3" stroke="black" cx="428.01" cy="-18" rx="30.35" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="428.01" y="-13.8" font-family="Times,serif" font-size="14.00">Леха</text>
 </g>
-<!-- node0x603000002710&#45;&gt;node0x6030000028f0 -->
-<g id="edge13" class="edge">
-<title>node0x603000002710&#45;&gt;node0x6030000028f0</title>
+<!-- node0x604000000d10&#45;&gt;node0x604000000dd0 -->
+<g id="edge12" class="edge">
+<title>node0x604000000d10&#45;&gt;node0x604000000dd0</title>
 <path fill="none" stroke="#a9b665" d="M472.73,-72.05C465.39,-63.35 456.31,-52.59 448.27,-43.03"/>
 <polygon fill="#a9b665" stroke="#a9b665" points="451.05,-40.9 441.93,-35.51 445.69,-45.42 451.05,-40.9"/>
 </g>
-<!-- node0x603000002950 -->
-<g id="node15" class="node">
-<title>node0x603000002950</title>
+<!-- node0x604000000ed0 -->
+<g id="node14" class="node">
+<title>node0x604000000ed0</title>
 <ellipse fill="#7daea3" stroke="black" cx="546.01" cy="-18" rx="44.84" ry="18"/>
 <text xml:space="preserve" text-anchor="middle" x="546.01" y="-13.8" font-family="Times,serif" font-size="14.00">пылесос</text>
 </g>
-<!-- node0x603000002710&#45;&gt;node0x603000002950 -->
-<g id="edge14" class="edge">
-<title>node0x603000002710&#45;&gt;node0x603000002950</title>
+<!-- node0x604000000d10&#45;&gt;node0x604000000ed0 -->
+<g id="edge13" class="edge">
+<title>node0x604000000d10&#45;&gt;node0x604000000ed0</title>
 <path fill="none" stroke="#ea6962" d="M501.29,-72.05C508.42,-63.59 517.19,-53.19 525.07,-43.84"/>
 <polygon fill="#ea6962" stroke="#ea6962" points="527.52,-46.37 531.29,-36.46 522.17,-41.85 527.52,-46.37"/>
 </g>
