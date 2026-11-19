@@ -16,6 +16,7 @@ error_code_e akinator_save      (bin_tree_s* const bin_tree);
 error_code_e akinator_read      (bin_tree_s* const bin_tree, char** buffer);
 error_code_e akinator_ask       (bin_tree_s* const bin_tree);
 error_code_e akinator_definition(bin_tree_s* const bin_tree);
+error_code_e akinator_compare   (bin_tree_s* const bin_tree);
 error_code_e akinator_give_trace(node_s**          node    , stack_s* stack, const char* const buffer);
 error_code_e akinator_end       (bin_tree_s* const bin_tree, char* buffer);
 
@@ -29,8 +30,9 @@ enum command_e {
     GUESS         = 1,
     VIS_TREE      = 2,
     DEFINITION    = 3,
-    SAVE_AND_QUIT = 4,
-    QUIT          = 5
+    COMPARE       = 4,
+    SAVE_AND_QUIT = 5,
+    QUIT          = 6
 };
 
 const size_t ANSWER_SIZE      = 100;
@@ -252,8 +254,9 @@ error_code_e akinator_ask(bin_tree_s* const bin_tree) {
         printf("1)Отгадать\n"
                "2)Показать дерево\n"
                "3)Дать определение\n"
-               "4)Выйти с сохранением\n"
-               "5)Выйти без сохранения\n");
+               "4)Сравнить два элемента\n"
+               "5)Выйти с сохранением\n"
+               "6)Выйти без сохранения\n");
 
         scanf("%d", &mode);
         clean_buffer();
@@ -269,6 +272,10 @@ error_code_e akinator_ask(bin_tree_s* const bin_tree) {
 
             case DEFINITION:
                 SAFE_CALL( akinator_definition(bin_tree), )
+                break;
+
+            case COMPARE:
+                SAFE_CALL( akinator_compare(bin_tree), );
                 break;
 
             case SAVE_AND_QUIT:
@@ -313,11 +320,11 @@ error_code_e akinator_definition(bin_tree_s* const bin_tree) {
     node_s** node   = NULL;
 
     while (stack.size > 0) {
+
         parent = node;
         SAFE_CALL( stack_pop(&stack, &node), )
 
         if (parent != NULL) {
-
 
             if ((*parent)->left == *node) {
                 print_and_say("%s", MAX_LITERAL_SIZE, (*parent)->data);
@@ -327,6 +334,135 @@ error_code_e akinator_definition(bin_tree_s* const bin_tree) {
             }
 
         }
+    }
+
+    return SUCCESS;
+}
+
+error_code_e akinator_compare(bin_tree_s* const bin_tree) {
+    assert(bin_tree != NULL);
+
+    char first_buffer[ANSWER_SIZE]  = "";
+    char second_buffer[ANSWER_SIZE] = "";
+
+    print_and_say("\nВведите первый элемент: ", MAX_LITERAL_SIZE);
+    read_line(first_buffer, ANSWER_SIZE);
+
+    stack_s first_stack = {};
+    STACK_INIT(first_stack, 2);
+
+    SAFE_CALL( akinator_give_trace(&bin_tree->root, &first_stack, first_buffer), );
+
+    if (first_stack.size == 0) {
+        print_and_say("Такого элемента нет", MAX_LITERAL_SIZE);
+        LOG_OK("akinator success");
+        return SUCCESS;
+    }
+
+    print_and_say("\nВведите второй элемент: ", MAX_LITERAL_SIZE);
+    read_line(second_buffer, ANSWER_SIZE);
+
+    stack_s second_stack = {};
+    STACK_INIT(second_stack, 2);
+
+    SAFE_CALL( akinator_give_trace(&bin_tree->root, &second_stack, second_buffer), );
+
+    if (second_stack.size == 0) {
+        print_and_say("Такого элемента нет", MAX_LITERAL_SIZE);
+        LOG_OK("akinator success");
+        return SUCCESS;
+    }
+
+    node_s** first_node    = NULL;
+    node_s** second_node   = NULL;
+    node_s** first_parent  = NULL;
+    node_s** second_parent = NULL;
+
+    print_and_say("Они похожи тем, что", MAX_LITERAL_SIZE);
+
+    while (first_stack.size > 0 && second_stack.size > 0) {
+
+        first_parent  = first_node;
+        second_parent = second_node;
+        SAFE_CALL( stack_pop(&first_stack,  &first_node) , )
+        SAFE_CALL( stack_pop(&second_stack, &second_node), )
+
+
+        if (first_parent != NULL) {
+
+            if (strncmp((*first_parent)->data, (*second_parent)->data, ANSWER_SIZE)) {
+                break;
+            }
+
+            if ((*first_parent)->left == *first_node) {
+                print_and_say("%s", MAX_LITERAL_SIZE, (*first_parent)->data);
+
+            } else {
+                print_and_say("не %s", MAX_LITERAL_SIZE, (*first_parent)->data);
+            }
+
+        }
+
+    }
+
+    print_and_say("Но %s в отличие от %s", MAX_LITERAL_SIZE, first_buffer, second_buffer);
+
+    while (first_stack.size > 0) {
+
+        if (first_parent != NULL) {
+
+            if ((*first_parent)->left == *first_node) {
+                print_and_say("%s", MAX_LITERAL_SIZE, (*first_parent)->data);
+
+            } else {
+                print_and_say("не %s", MAX_LITERAL_SIZE, (*first_parent)->data);
+            }
+
+        }
+
+        first_parent = first_node;
+        SAFE_CALL( stack_pop(&first_stack,  &first_node),  )
+
+    }
+
+    if (first_parent != NULL) {
+
+        if ((*first_parent)->left == *first_node) {
+            print_and_say("%s", MAX_LITERAL_SIZE, (*first_parent)->data);
+
+        } else {
+            print_and_say("не %s", MAX_LITERAL_SIZE, (*first_parent)->data);
+        }
+
+    }
+
+    while (second_stack.size > 0) {
+
+        if (second_parent != NULL) {
+
+            if ((*second_parent)->left == *second_node) {
+                print_and_say("не %s", MAX_LITERAL_SIZE, (*second_parent)->data);
+
+            } else {
+                print_and_say("%s",    MAX_LITERAL_SIZE, (*second_parent)->data);
+            }
+
+        }
+
+        second_parent = second_node;
+        SAFE_CALL( stack_pop(&second_stack, &second_node), )
+
+    }
+
+    if (second_parent != NULL) {
+
+        if ((*second_parent)->left == *second_node) {
+            print_and_say("не %s", MAX_LITERAL_SIZE, (*second_parent)->data);
+
+        } else {
+            print_and_say("%s",    MAX_LITERAL_SIZE, (*second_parent)->data);
+        }
+
     }
 
     return SUCCESS;

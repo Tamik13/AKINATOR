@@ -94,9 +94,11 @@ error_code_e bin_tree_del(bin_tree_s* const bin_tree, node_s** const node) {
     assert(node != NULL);
     assert(bin_tree->count_nodes > 0);
 
-    free(*node);
-    *node = NULL;
-    bin_tree->count_nodes--;
+    if ((*node)->is_new == true) {
+        free(*node);
+        *node = NULL;
+        bin_tree->count_nodes--;
+    }
 
     LOG_OK("bin_tree_del successfully");
     return SUCCESS;
